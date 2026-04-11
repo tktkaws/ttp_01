@@ -1,11 +1,96 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <header>
+    <h1 class="text-4xl header_logo">
+		<a href="/">
+		タカハシ<br>
+		タカユキ<br>
+		のポート<br>
+		フォリオ
+		</a>
+	</h1>
+    <!-- <nav class="mt-8 text-lg">
+      <ul class="grid gap-2">
+        <li><a href="#about">私について</a></li>
+        <li><a href="#projects">略歴</a></li>
+        <li><a href="#contact">業務経歴</a></li>
+        <li><a href="#contact">アクセシビリティへの関心</a></li>
+        <li><a href="#contact">知的好奇心</a></li>
+        <li><a href="#contact">アウトプット</a></li>
+      </ul>
+    </nav> -->
+  </header>
+  <main>
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8">私について</h2>
+      <div class="content_grid">
+        <p>
+          こんにちは！私はタカハシタカユキと申します。フロントエンドエンジニアとして、ユーザーに優れた体験を提供することに情熱を持っています。
+        </p>
+      </div>
+    </section>
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8 mt-16">略歴</h2>
+      <div class="content_grid">
+        <p>私の略歴は以下の通りです：</p>
+        <ul>
+          <li>2015年 - 大学卒業後、Web開発の世界に飛び込みました。</li>
+          <li>
+            2016年 -
+            フロントエンドエンジニアとしてのキャリアをスタートしました。
+          </li>
+          <li>
+            2018年 - 大手IT企業に入社し、複数のプロジェクトに携わりました。
+          </li>
+          <li>
+            2020年 -
+            フリーランスとして独立し、様々なクライアントと協力してプロジェクトを成功させました。
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8 mt-16">業務経歴</h2>
+      <div class="content_grid">
+        <p>
+          私の業務経歴には、ReactやVue.jsを使用したフロントエンド開発、UI/UXデザイン、パフォーマンス最適化などが含まれます。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8 mt-16">
+        アクセシビリティへの関心
+      </h2>
+      <div class="content_grid">
+        <p>
+          アクセシビリティへの関心も高く、すべてのユーザーが快適に利用できるウェブサイトの構築に努めています。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8 mt-16">知的好奇心</h2>
+      <div class="content_grid">
+        <p>
+          知的好奇心を持ち続け、新しい技術やトレンドを学び、常にスキルを向上させることを心がけています。
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-4xl border-b pb-2 mb-8 mt-16">アウトプット</h2>
+      <div class="content_grid">
+        <p>
+          アウトプットも積極的に行っており、ブログやオープンソースプロジェクトへの貢献を通じて、コミュニティに価値を提供しています。
+        </p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>© 2024 Astro. All rights reserved.</p>
+  </footer>
 </Layout>
