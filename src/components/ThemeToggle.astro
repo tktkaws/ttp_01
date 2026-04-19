@@ -1,0 +1,198 @@
+---
+import Sun from "@lucide/astro/icons/sun";
+import Moon from "@lucide/astro/icons/moon";
+import Monitor from "@lucide/astro/icons/monitor";
+---
+
+<div class="theme-toggle" id="theme-toggle">
+  <button
+    type="button"
+    class="theme-toggle__button"
+    aria-label="テーマを切り替える"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <Sun class="theme-toggle__icon theme-toggle__icon--sun" size={20} />
+    <Moon class="theme-toggle__icon theme-toggle__icon--moon" size={20} />
+  </button>
+  <ul class="theme-toggle__menu" role="menu">
+    <li role="menuitem">
+      <button type="button" class="theme-toggle__option" data-theme="light">
+        <Sun size={16} />
+        <span>ライト</span>
+      </button>
+    </li>
+    <li role="menuitem">
+      <button type="button" class="theme-toggle__option" data-theme="dark">
+        <Moon size={16} />
+        <span>ダーク</span>
+      </button>
+    </li>
+    <li role="menuitem">
+      <button type="button" class="theme-toggle__option" data-theme="system">
+        <Monitor size={16} />
+        <span>システム</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .theme-toggle {
+    position: fixed;
+    top: calc(var(--spacing) * 16);
+    right: calc(var(--spacing) * 16);
+    z-index: 50;
+  }
+
+  .theme-toggle__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    /* border: 1px solid #d1d5db; */
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  :global(.dark) .theme-toggle__button {
+    border-color: #4b5563;
+    background: #1f2937;
+  }
+
+  .theme-toggle__button:hover {
+    background: #f3f4f6;
+  }
+
+  :global(.dark) .theme-toggle__button:hover {
+    background: #374151;
+  }
+
+  .theme-toggle__icon--moon {
+    display: none;
+  }
+
+  :global(.dark) .theme-toggle__icon--sun {
+    display: none;
+  }
+
+  :global(.dark) .theme-toggle__icon--moon {
+    display: block;
+  }
+
+  .theme-toggle__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    list-style: none;
+    min-width: 10rem;
+  }
+
+  :global(.dark) .theme-toggle__menu {
+    border-color: #4b5563;
+    background: #1f2937;
+  }
+
+  .theme-toggle__menu.is-open {
+    display: block;
+  }
+
+  .theme-toggle__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: inherit;
+  }
+
+  .theme-toggle__option:hover,
+  .theme-toggle__option:focus-visible {
+    background: #f3f4f6;
+  }
+
+  :global(.dark) .theme-toggle__option:hover,
+  :global(.dark) .theme-toggle__option:focus-visible {
+    background: #374151;
+  }
+
+  .theme-toggle__option[aria-checked="true"] {
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("theme-toggle")!;
+  const button = toggle.querySelector(".theme-toggle__button")!;
+  const menu = toggle.querySelector(".theme-toggle__menu")!;
+  const options = toggle.querySelectorAll<HTMLButtonElement>(".theme-toggle__option");
+
+  function getStoredTheme(): string {
+    return localStorage.getItem("theme") || "system";
+  }
+
+  function getSystemTheme(): string {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function applyTheme(theme: string) {
+    const resolved = theme === "system" ? getSystemTheme() : theme;
+    document.documentElement.classList.toggle("dark", resolved === "dark");
+
+    options.forEach((opt) => {
+      opt.setAttribute("aria-checked", opt.dataset.theme === theme ? "true" : "false");
+    });
+  }
+
+  function setTheme(theme: string) {
+    localStorage.setItem("theme", theme);
+    applyTheme(theme);
+  }
+
+  // Toggle menu
+  button.addEventListener("click", () => {
+    const isOpen = menu.classList.toggle("is-open");
+    button.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  // Select theme
+  options.forEach((opt) => {
+    opt.addEventListener("click", () => {
+      setTheme(opt.dataset.theme!);
+      menu.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (!toggle.contains(e.target as Node)) {
+      menu.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Listen for system theme change
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (getStoredTheme() === "system") {
+      applyTheme("system");
+    }
+  });
+
+  // Init
+  applyTheme(getStoredTheme());
+</script>
