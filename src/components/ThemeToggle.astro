@@ -39,21 +39,16 @@ import Monitor from "@lucide/astro/icons/monitor";
 
 <style>
   .theme-toggle {
+    display: none;
     position: fixed;
     top: calc(var(--spacing) * 2);
     right: calc(var(--spacing) * 2);
     z-index: 50;
   }
 
-  @media (min-width: 640px) {
-    .theme-toggle {
-      top: calc(var(--spacing) * 4);
-      right: calc(var(--spacing) * 4);
-    }
-  }
-
   @media (min-width: 768px) {
     .theme-toggle {
+      display: block;
       top: calc(var(--spacing) * 16);
       right: calc(var(--spacing) * 16);
     }
