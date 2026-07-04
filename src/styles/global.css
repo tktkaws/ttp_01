@@ -3,7 +3,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--font-sans: "Zen Kaku Gothic New", sans-serif;
+	--font-gen-interface-jp: "Gen Interface JP", "Hiragino Kaku Gothic ProN",
+		"Hiragino Sans", "Yu Gothic", "YuGothic", sans-serif;
+	--font-zen-kaku: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN",
+		"Hiragino Sans", "Yu Gothic", "YuGothic", sans-serif;
+	--font-sans: var(--font-gen-interface-jp);
+	--font-zen: var(--font-zen-kaku);
 }
 
 .layout_grid {
@@ -32,6 +37,7 @@ footer {
 @media (min-width: 768px) {
 	.layout_grid {
 		--layout-page-padding: calc(var(--spacing) * 16);
+		--layout-column-gap: var(--layout-page-padding);
 		--layout-content-offset: calc(
 			var(--layout-sidebar-width) + var(--layout-column-gap)
 		);
@@ -53,13 +59,11 @@ footer {
 	}
 
 	main {
-		max-width: 48rem;
 		margin-left: var(--layout-content-offset);
 		margin-top: 14rem;
 	}
 
 	footer {
-		max-width: 48rem;
 		margin-left: var(--layout-content-offset);
 	}
 }
